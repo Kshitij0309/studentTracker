@@ -8,12 +8,11 @@ app.use(express.static(path.join(__dirname, "../public")));
 
 let students = [];
 
-// GET students
+// API routes
 app.get("/students", (req, res) => {
   res.json(students);
 });
 
-// Add student
 app.post("/students", (req, res) => {
   const student = {
     id: Date.now(),
@@ -25,7 +24,6 @@ app.post("/students", (req, res) => {
   res.json(student);
 });
 
-// Mark attendance
 app.put("/students/:id/attendance", (req, res) => {
   const student = students.find(s => s.id == req.params.id);
   if (!student) return res.status(404).json({ message: "Not found" });
@@ -39,7 +37,6 @@ app.put("/students/:id/attendance", (req, res) => {
   res.json(student);
 });
 
-// Delete student
 app.delete("/students/:id", (req, res) => {
   students = students.filter(s => s.id != req.params.id);
   res.json({ message: "Deleted" });
